@@ -18,10 +18,11 @@ module IGDB
          path_params = URI.encode_www_form(params)
          full_path = path_base + path_id
          full_path << "?" + path_params unless path_params.empty?
+         puts full_path
          req = Net::HTTP::Get.new full_path, HEADER.merge({HEADER_API_KEY_PARAM => self.api_key})
          response = http.request(req)
          response.value
-         JSON.parse response.body ,object_class: OpenStruct
+         return response
       end
 
       def method_missing(m, *args, opts, &block)
